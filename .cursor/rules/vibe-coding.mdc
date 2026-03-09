@@ -1,0 +1,23 @@
+---
+description: Enforce Tailwind and className vibe-coding defaults
+alwaysApply: true
+---
+
+# Vibe Coding Rules
+
+- Use `clsx(...)` for every JSX `className` value (including single static classes).
+- In `clsx(...)`, pass classes as separate comma-separated string arguments (for example `clsx("flex", "items-center")`, not `clsx("flex items-center")`).
+- Prefer Tailwind utility classes over bespoke component CSS when practical.
+- Keep Tailwind classes automatically sorted through the shared Prettier config.
+- When adding class helper wrappers, prefer `clsx` and keep naming simple (`cn` only when needed).
+- Keep components small and composable; extract repeated UI blocks.
+- Do not use inline styles (`style={{ ... }}`) in JSX.
+- Do not use arbitrary Tailwind values (for example `w-[232px]`, `tracking-[0.2em]`).
+- If arbitrary styling is required, create a sibling component stylesheet named after the component (for example `our-component.css`).
+- Component stylesheets must use strict BEM with every class prefixed by the component name block (for example `our-component__...`).
+- React linting baseline uses `@eslint-react/eslint-plugin`; do not add `eslint-plugin-react` back unless explicitly requested.
+- Use kebab-case for filenames by default.
+- Keep framework-required filenames as-is (`page.tsx`, `layout.tsx`, `route.ts`, `robots.ts`, etc.).
+- Use arrow functions wherever possible.
+- Use hoisted `function` declarations only when explicitly necessary.
+- Do not reference the React UMD global (for example `React.ReactNode`); import types from `react` instead (for example `import type { ReactNode } from "react";`).

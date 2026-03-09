@@ -1,0 +1,31 @@
+{
+  "name": "@weasq/weasq-ui",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./*": "./src/*",
+    "./assets/*": "./src/assets/*"
+  },
+  "scripts": {
+    "build": "pnpm run icons:build",
+    "icons:build": "node ./scripts/build-icons.mjs",
+    "lint": "eslint . --max-warnings 0",
+    "generate:component": "turbo gen react-component",
+    "check-types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.5",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@weasq/config-eslint": "workspace:*",
+    "@weasq/config-typescript": "workspace:*",
+    "eslint": "^10.0.3",
+    "svgstore": "^3.0.1",
+    "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  }
+}

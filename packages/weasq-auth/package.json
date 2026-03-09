@@ -1,0 +1,35 @@
+{
+  "name": "@weasq/weasq-auth",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts",
+    "./server": "./src/server.ts",
+    "./client": "./src/client.ts",
+    "./login": "./src/login.tsx",
+    "./providers": "./src/providers.tsx",
+    "./session-guard": "./src/session-guard.tsx",
+    "./fetch-with-token": "./src/fetch-with-token.ts",
+    "./next-auth": "./src/next-auth.d.ts"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.5",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@weasq/config-eslint": "workspace:*",
+    "@weasq/config-typescript": "workspace:*",
+    "eslint": "^10.0.3",
+    "next": "16.1.6",
+    "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "next-auth": "^4.24.13",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  }
+}
