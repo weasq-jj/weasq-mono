@@ -1,0 +1,3292 @@
+{
+  "openapi": "3.0.1",
+  "info": { "title": "OpenAPI definition", "version": "v0" },
+  "servers": [{ "url": "https://api.weasq.io/bpt", "description": "Generated server url" }],
+  "tags": [
+    { "name": "UmfrageTeilnehmer", "description": "the UmfrageTeilnehmer API" },
+    { "name": "auswertung", "description": "Operations about bottomup Relations" },
+    { "name": "Umfrage", "description": "the Umfrage API" },
+    { "name": "Tag", "description": "the Tag API" },
+    { "name": "pdfexportjobs", "description": "the pdfexportjobs API" },
+    { "name": "Teilnehmer", "description": "the Teilnehmer API" },
+    { "name": "Login", "description": "the Login API" },
+    { "name": "Frage", "description": "the Frage API" },
+    { "name": "notification", "description": "the notification API" },
+    { "name": "Bottomup", "description": "the Bottomup API" }
+  ],
+  "paths": {
+    "/umfrageteilnehmer/{umfrageteilnehmerId}": {
+      "get": {
+        "tags": ["Bottomup"],
+        "summary": "get umfrage by id",
+        "operationId": "getFeedbackgeber",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "umfrageteilnehmerId",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageTeilnehmerResource" } }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageTeilnehmerResource" } }
+            }
+          },
+          "404": {
+            "description": "Umfrage or Feedbacknehmer not found",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageTeilnehmerResource" } }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      },
+      "put": {
+        "tags": ["UmfrageTeilnehmer"],
+        "summary": "update umfrageTeilnehmer",
+        "operationId": "updateUmfrageTeilnehmer",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "umfrageteilnehmerId",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageTeilnehmerDataResource" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageTeilnehmerResource" } }
+            }
+          },
+          "400": {
+            "description": "Invalid Umfrage supplied",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageTeilnehmerResource" } }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageTeilnehmerResource" } }
+            }
+          },
+          "404": {
+            "description": "Umfrage or Feedbacknehmer not found",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageTeilnehmerResource" } }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      },
+      "delete": {
+        "tags": ["UmfrageTeilnehmer"],
+        "summary": "delete umfrageteilnehmer",
+        "operationId": "deleteUmfrageteilnehmer",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "umfrageteilnehmerId",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "201": { "description": "operation successful" },
+          "400": { "description": "Invalid id supplied" },
+          "404": { "description": "Umfrageteilnehmer not found" }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/umfrage/{umfrage}/communication/template/{template}": {
+      "put": {
+        "tags": ["Umfrage - Communication Template"],
+        "summary": "Add a template to a Umfrage",
+        "description": "Returns the created Umfrage Template",
+        "operationId": "addEmailTemplateToUmfrage",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          { "name": "umfrage", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } },
+          { "name": "template", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "responses": { "200": { "description": "Success" }, "500": { "description": "Internal server error" } }
+      },
+      "delete": {
+        "tags": ["Umfrage - Communication Template"],
+        "summary": "delete a template to a Umfrage",
+        "description": "Returns success if the Umfrage Template could be deleted",
+        "operationId": "deleteUmfrageTemplate",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          { "name": "umfrage", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } },
+          { "name": "template", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "responses": { "200": { "description": "Success" }, "500": { "description": "Internal server error" } }
+      }
+    },
+    "/umfrage/{umfrageid}/antworten": {
+      "put": {
+        "tags": ["Antwort", "Umfrage"],
+        "summary": "put antworten to fragen in umfrage",
+        "operationId": "updateAntworten",
+        "parameters": [
+          {
+            "name": "umfrageid",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "array of antwort objects",
+                "items": { "$ref": "#/components/schemas/AntwortDataResource" }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": { "description": "successful operation" },
+          "400": { "description": "Invalid Frage supplied" },
+          "404": { "description": "Frage not found" }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/umfrage/{id}": {
+      "get": {
+        "tags": ["Umfrage"],
+        "summary": "get umfrage by id",
+        "operationId": "getUmfrage",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageResource" } } }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageResource" } } }
+          },
+          "404": {
+            "description": "User not found",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageResource" } } }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      },
+      "put": {
+        "tags": ["Umfrage"],
+        "summary": "update umfrage",
+        "operationId": "updateUmfrage",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageDataResource" } } },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageResource" } } }
+          },
+          "400": {
+            "description": "Invalid Umfrage supplied",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageResource" } } }
+          },
+          "404": {
+            "description": "User not found",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageResource" } } }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      },
+      "delete": {
+        "tags": ["Umfrage"],
+        "summary": "delete umfrage",
+        "operationId": "deleteUmfrage",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "201": { "description": "operation successful" },
+          "400": { "description": "Invalid id supplied" },
+          "404": { "description": "Umfrage not found" }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/umfrage/{id}/schedule": {
+      "put": {
+        "tags": ["Umfragestart", "Umfrage"],
+        "summary": "schedule umfrage",
+        "operationId": "scheduleUmfrage",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/ScheduleUmfrageDataResource" } }
+          }
+        },
+        "responses": {
+          "200": { "description": "successful operation" },
+          "404": { "description": "umfrage not found" },
+          "400": { "description": "umfrage not valid" },
+          "500": {
+            "description": "Internal server error",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorCodeResponse" } } }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/umfrage/{id}/mail": {
+      "get": {
+        "tags": ["Mail", "Umfrage"],
+        "summary": "get umfrage mail template",
+        "operationId": "getUmfrageMail",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageMailResource" } } }
+          },
+          "404": {
+            "description": "umfrage not found",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageMailResource" } } }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorCodeResponse" } } }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      },
+      "put": {
+        "tags": ["Mail", "Umfrage"],
+        "summary": "set umfrage mail template",
+        "operationId": "updateUmfrageMail",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageMailDataResource" } } }
+        },
+        "responses": {
+          "200": { "description": "successful operation" },
+          "404": { "description": "umfrage not found" },
+          "500": {
+            "description": "Internal server error",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorCodeResponse" } } }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/umfrage/{id}/abort": {
+      "put": {
+        "tags": ["Umfrage"],
+        "summary": "abort umfrage",
+        "operationId": "abortUmfrage",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": { "content": { "application/json": { "schema": { "type": "object" } } } },
+        "responses": {
+          "200": { "description": "successful operation" },
+          "404": { "description": "umfrage not found" },
+          "400": { "description": "umfrage not valid" },
+          "500": {
+            "description": "Internal server error",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorCodeResponse" } } }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/teilnehmer/{id}": {
+      "get": {
+        "tags": ["Teilnehmer"],
+        "summary": "Get Telnehmer by id",
+        "description": "This can only be done by the logged in user",
+        "operationId": "getTeilnehmer",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id that need to be queried",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/TeilnehmerWithOutTokenResource" } }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/TeilnehmerWithOutTokenResource" } }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Teilnehmer"],
+        "summary": "Update Teilnehmer",
+        "description": "This can only be done by the logged in user",
+        "operationId": "putTeilnehmer",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id that need to be queried",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TeilnehmerDataResource" } } },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/TeilnehmerWithOutTokenResource" } }
+            }
+          },
+          "400": {
+            "description": "Invalid Umfrage supplied",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/TeilnehmerWithOutTokenResource" } }
+            }
+          },
+          "404": {
+            "description": "Umfrage not found",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/TeilnehmerWithOutTokenResource" } }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Teilnehmer"],
+        "summary": "Delete Teilnehmer",
+        "description": "This can only be done by the logged in user",
+        "operationId": "deleteTeilnehmer",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id that need to be queried",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Ok" },
+          "400": { "description": "Invalid Umfrage supplied" },
+          "404": { "description": "Umfrage not found" }
+        }
+      }
+    },
+    "/tags/{id}": {
+      "get": {
+        "tags": ["Tag"],
+        "summary": "Get Tag by id",
+        "operationId": "getTagData",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id that need to be updated",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TagResource" } } }
+          },
+          "404": {
+            "description": "Tag not found",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TagResource" } } }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Tag"],
+        "summary": "Updated Tag",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateTag",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id that need to be updated",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TagDataResource" } } },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TagResource" } } }
+          },
+          "400": {
+            "description": "Invalid Tag supplied",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TagResource" } } }
+          },
+          "404": {
+            "description": "Tag not found",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TagResource" } } }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Tag"],
+        "summary": "Delete Tag",
+        "description": "This can only be done by the logged in User.",
+        "operationId": "deleteTag",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id that need to be updated",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "201": { "description": "operation successful" },
+          "400": { "description": "Invalid id supplied" },
+          "404": { "description": "Umfrage not found" }
+        }
+      }
+    },
+    "/fragenkatalog/{id}": {
+      "put": {
+        "tags": ["Frage"],
+        "operationId": "updateFragenKatalog",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of the fragenkatalog",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/FragenKatalogUpdateResource" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/FragenKatalogResource" } } }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Frage"],
+        "operationId": "deleteFragenKatalog",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of the fragenkatalog",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": { "200": { "description": "OK" } }
+      }
+    },
+    "/fragenkatalog/{id}/fragen": {
+      "put": {
+        "tags": ["Frage"],
+        "operationId": "sortFragen",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "update fragen of fragenktalog",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "type": "array", "items": { "type": "string", "format": "uuid" } } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/FragenKatalogResource" } } }
+          }
+        }
+      }
+    },
+    "/fragenkatalog/{fragenKatalogId}/fragen/{id}": {
+      "get": {
+        "tags": ["Frage"],
+        "summary": "Get Frage by id",
+        "operationId": "getFrageData",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id that need to be updated",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "fragenKatalogId",
+            "in": "path",
+            "description": "id of fragenkatalog",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/FrageResource" } } }
+          },
+          "404": {
+            "description": "User not found",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/FrageResource" } } }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Frage"],
+        "summary": "Updated Frage",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateFrage",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id that need to be updated",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "fragenKatalogId",
+            "in": "path",
+            "description": "id of fragenkatalog",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/FrageDataResource" } } },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/FrageResource" } } }
+          },
+          "400": {
+            "description": "Invalid Umfrage supplied",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/FrageResource" } } }
+          },
+          "404": {
+            "description": "Frage not found",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/FrageResource" } } }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Frage"],
+        "summary": "Delete Frage",
+        "description": "This can only be done by the logged in User.",
+        "operationId": "deleteFrage",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id that need to be updated",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "fragenKatalogId",
+            "in": "path",
+            "description": "id of fragenkatalog",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "201": { "description": "operation successful" },
+          "400": { "description": "Invalid id supplied" },
+          "404": { "description": "Umfrage not found" }
+        }
+      }
+    },
+    "/feedbacknehmermappings/{mappingId}": {
+      "get": {
+        "tags": ["Bottomup"],
+        "summary": "get feedbacknehmermapping by id",
+        "operationId": "getFeedbacknehmerMapping",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "mappingId",
+            "in": "path",
+            "description": "feedbacknehmerMappingId",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/FeedbacknehmerMappingResource" } }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/FeedbacknehmerMappingResource" } }
+            }
+          },
+          "404": {
+            "description": "Feedbacknehmer mapping not found",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/FeedbacknehmerMappingResource" } }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      },
+      "put": {
+        "tags": ["Bottomup"],
+        "summary": "update feedbacknehmermapping by id",
+        "operationId": "updateFeedbacknehmerMapping",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "mappingId",
+            "in": "path",
+            "description": "feedbacknehmerMappingId",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/FeedbacknehmerMappingDataResource" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/FeedbacknehmerMappingResource" } }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/FeedbacknehmerMappingResource" } }
+            }
+          },
+          "404": {
+            "description": "Feedbacknehmer mapping not found",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/FeedbacknehmerMappingResource" } }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      },
+      "delete": {
+        "tags": ["Bottomup"],
+        "summary": "remove Feedbacknehmermapping",
+        "operationId": "deleteFeedbacknehmermapping",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "mappingId",
+            "in": "path",
+            "description": "feedbacknehmerMappingId",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "201": { "description": "operation successful" },
+          "400": { "description": "Invalid id supplied" },
+          "404": { "description": "Mapping not found" }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/email/template/{id}": {
+      "get": {
+        "tags": ["E-Mail Template"],
+        "summary": "Get E-Mail Templates",
+        "description": "Returns the requested E-Mail Template",
+        "operationId": "getEmailTemplate",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/EMailTemplateResource" } } }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/EMailTemplateResource" } } }
+          }
+        }
+      },
+      "put": {
+        "tags": ["E-Mail Template"],
+        "summary": "Put E-Mail Template",
+        "description": "Returns the modified E-Mail Template",
+        "operationId": "putEmailTemplate",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/EMailTemplateDataResource" } } },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/EMailTemplateResource" } } }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/EMailTemplateResource" } } }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["E-Mail Template"],
+        "summary": "Delete E-Mail Template",
+        "description": "Returns success if the E-Mail Template could be deleted",
+        "operationId": "deleteEmailTemplate",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/EMailTemplateResource" } } }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/EMailTemplateResource" } } }
+          }
+        }
+      }
+    },
+    "/admin/generateLoginToken": {
+      "put": {
+        "tags": ["Login"],
+        "summary": "generates a new login for the given user",
+        "description": "This can only be done by the admin",
+        "operationId": "generateLoginToken",
+        "parameters": [{ "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "Teilnehmer to generate",
+                "items": { "type": "string", "format": "uuid" }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/TeilnehmerLoginGenerationItem" } }
+              }
+            }
+          },
+          "404": {
+            "description": "One of the Teilnehmer not found",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/TeilnehmerLoginGenerationItem" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/umfrage/{umfrageid}/umfrageteilnehmer": {
+      "get": {
+        "tags": ["Bottomup"],
+        "summary": "get umfrage by id",
+        "operationId": "getUmfrageteilnehmer",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "umfrageid",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageTeilnehmerOverviewResource" } }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageTeilnehmerOverviewResource" } }
+            }
+          },
+          "404": {
+            "description": "Umfrage or Feedbacknehmer not found",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageTeilnehmerOverviewResource" } }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      },
+      "post": {
+        "tags": ["UmfrageTeilnehmer"],
+        "summary": "post umfrageTeilnehmer",
+        "operationId": "postUmfrageTeilnehmer",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "umfrageid",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageTeilnehmerDataResource" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageTeilnehmerResource" } }
+            }
+          },
+          "400": {
+            "description": "Invalid Umfrage supplied",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageTeilnehmerResource" } }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageTeilnehmerResource" } }
+            }
+          },
+          "404": {
+            "description": "Umfrage or Feedbacknehmer not found",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageTeilnehmerResource" } }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/umfrage/{id}/verify": {
+      "post": {
+        "tags": ["Umfrageverification", "Umfrage"],
+        "summary": "verify umfrage",
+        "operationId": "verifyUmfrage",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageResultEmailQueueResultResource" } }
+            }
+          },
+          "400": {
+            "description": "Umfrage in invalid state",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageResultEmailQueueResultResource" } }
+            }
+          },
+          "404": {
+            "description": "Umfrage not found",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageResultEmailQueueResultResource" } }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/umfrage/{id}/teilnehmerupload": {
+      "post": {
+        "tags": ["Umfrage"],
+        "summary": "update teilnehmer to feedbacknehmer mapping of umfrage",
+        "operationId": "importTeilnehmerData",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "preflight",
+            "in": "query",
+            "description": "Optional flag to only report errors and nut run import",
+            "required": false,
+            "schema": { "type": "boolean" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": { "filename": { "type": "array", "items": { "type": "string", "format": "binary" } } }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/BottomupImportResultResource" } }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Umfrage"],
+        "summary": "delete all bottomup relations",
+        "operationId": "clearUmfrageBottomupData",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "201": { "description": "operation successful" },
+          "400": { "description": "Invalid id supplied" },
+          "404": { "description": "Umfrage not found" }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/umfrage/{id}/sendReminder": {
+      "post": {
+        "tags": ["Umfrage"],
+        "operationId": "sendReminder",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/RemindUmfrageResult" } } }
+          }
+        }
+      }
+    },
+    "/teilnehmer": {
+      "get": {
+        "tags": ["Teilnehmer"],
+        "summary": "Get list of Teilnehmer",
+        "description": "This can only be done by the logged in user",
+        "operationId": "getTeilnehmerList",
+        "parameters": [{ "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/TeilnehmerWithOutTokenResource" }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/TeilnehmerWithOutTokenResource" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Teilnehmer"],
+        "summary": "Create new Teilnehmer",
+        "description": "This can only be done by the logged in user",
+        "operationId": "postTeilnehmer",
+        "parameters": [{ "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TeilnehmerDataResource" } } },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/TeilnehmerWithOutTokenResource" } }
+            }
+          },
+          "400": {
+            "description": "Invalid Umfrage supplied",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/TeilnehmerWithOutTokenResource" } }
+            }
+          },
+          "404": {
+            "description": "Umfrage not found",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/TeilnehmerWithOutTokenResource" } }
+            }
+          }
+        }
+      }
+    },
+    "/tags": {
+      "get": {
+        "tags": ["Tag"],
+        "summary": "Get all Tags",
+        "operationId": "getTagList",
+        "parameters": [{ "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/TagResource" } }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Tag"],
+        "summary": "Create new Tag",
+        "description": "This can only be done by the logged in user",
+        "operationId": "postTag",
+        "parameters": [{ "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TagDataResource" } } },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TagResource" } } }
+          },
+          "400": {
+            "description": "Invalid Tag supplied",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TagResource" } } }
+          },
+          "404": {
+            "description": "Tag not found",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TagResource" } } }
+          }
+        }
+      }
+    },
+    "/pdfexportjobs": {
+      "get": {
+        "tags": ["pdfexportjobs"],
+        "summary": "Get status of all jobs",
+        "description": "This can only be done by the logged in admin",
+        "operationId": "getJobsStatusOfAllJobs",
+        "parameters": [{ "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "operation successful",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/PdfExportJobStatusResource" } }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["pdfexportjobs"],
+        "summary": "Queue new export job for pdf export",
+        "description": "This can only be done by the logged in admin",
+        "operationId": "queueExportJob",
+        "parameters": [{ "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NewPdfExportJobResource" } } },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "operation successful",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PdfExportJobResource" } } }
+          }
+        }
+      }
+    },
+    "/notification/notify": {
+      "post": {
+        "tags": ["notification"],
+        "summary": "AWS SNS notifications",
+        "description": "This can only be done by the logged in user",
+        "operationId": "notificationPlain",
+        "requestBody": {
+          "content": {
+            "text/plain": { "schema": { "type": "string", "description": "new notification" } },
+            "application/json": { "schema": { "type": "string", "description": "new notification" } }
+          },
+          "required": true
+        },
+        "responses": { "201": { "description": "operation successful" } }
+      }
+    },
+    "/migratelegacyfragen": {
+      "post": {
+        "tags": ["Frage"],
+        "operationId": "createUmfrageFromFragenKatalog",
+        "responses": { "200": { "description": "OK" } }
+      }
+    },
+    "/login/teilnehmer": {
+      "post": {
+        "tags": ["Login"],
+        "summary": "try teilnehmerlogin",
+        "description": "teilnehmerlogin functionality",
+        "operationId": "teilnehmerlogin",
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TokenLoginResource" } } },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/TeilnehmerWithTokenResource" } }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/TeilnehmerWithTokenResource" } }
+            }
+          },
+          "403": {
+            "description": "User already done",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/TeilnehmerWithTokenResource" } }
+            }
+          }
+        }
+      }
+    },
+    "/fragenkatalog": {
+      "get": {
+        "tags": ["Frage"],
+        "operationId": "getFragenKataloge",
+        "parameters": [
+          {
+            "name": "includeArchived",
+            "in": "query",
+            "description": "Optional flag to filter fragenkataloge by archived status.",
+            "required": false,
+            "schema": { "type": "boolean" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/FragenKatalogResource" } }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Frage"],
+        "operationId": "createFragenKatalog",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/FragenKatalogCreationResource" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/FragenKatalogResource" } } }
+          }
+        }
+      }
+    },
+    "/fragenkatalog/{id}/createumfrage": {
+      "post": {
+        "tags": ["Frage"],
+        "operationId": "createUmfrageFromFragenKatalog_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "create umfrage from fragenkatalog",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/FragenKatalogUmfrageCreationResource" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/UmfrageResource" } } }
+            }
+          }
+        }
+      }
+    },
+    "/fragenkatalog/{id}/copy": {
+      "post": {
+        "tags": ["Frage"],
+        "operationId": "copyFragenKatalog",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of the fragenkatalog",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/FragenKatalogCopyCreationResource" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/FragenKatalogResource" } } }
+          }
+        }
+      }
+    },
+    "/fragenkatalog/{fragenKatalogId}/fragen": {
+      "get": {
+        "tags": ["Frage"],
+        "summary": "Get all Fragen",
+        "operationId": "getFrageList",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "fragenKatalogId",
+            "in": "path",
+            "description": "id of fragenkatalog",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/FrageResource" } }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Frage"],
+        "summary": "Create new Frage",
+        "description": "This can only be done by the logged in user",
+        "operationId": "postFrage",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "fragenKatalogId",
+            "in": "path",
+            "description": "id of fragenkatalog",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/FrageDataResource" } } },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/FrageResource" } } }
+          },
+          "400": {
+            "description": "Invalid Umfrage supplied",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/FrageResource" } } }
+          },
+          "404": {
+            "description": "Umfrage not found",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/FrageResource" } } }
+          }
+        }
+      }
+    },
+    "/feedbacknehmermappings": {
+      "get": {
+        "tags": ["Bottomup"],
+        "summary": "get feedbacknehmermappings",
+        "operationId": "getFeedbacknehmerMappings",
+        "parameters": [{ "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/FeedbacknehmerMappingResource" } }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/FeedbacknehmerMappingResource" } }
+              }
+            }
+          },
+          "404": {
+            "description": "Feedbacknehmer mapping not found",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/FeedbacknehmerMappingResource" } }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      },
+      "post": {
+        "tags": ["Bottomup"],
+        "summary": "insert feedbacknehmermappings",
+        "operationId": "insertFeedbacknehmerMappings",
+        "parameters": [{ "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/FeedbacknehmerMappingDataResource" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/FeedbacknehmerMappingResource" } }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/FeedbacknehmerMappingResource" } }
+            }
+          },
+          "404": {
+            "description": "Feedbacknehmer mapping not found",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/FeedbacknehmerMappingResource" } }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/feedbacknehmer/{feedbacknehmerid}/feedbackgeber": {
+      "get": {
+        "tags": ["Bottomup"],
+        "summary": "get feedbackgeber from feedbacknehmer",
+        "operationId": "getFeedbackgeberOfFeedbacknehmer",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "feedbacknehmerid",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/UmfrageTeilnehmerResource" } }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/UmfrageTeilnehmerResource" } }
+              }
+            }
+          },
+          "404": {
+            "description": "Umfrage or Feedbacknehmer not found",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/UmfrageTeilnehmerResource" } }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      },
+      "post": {
+        "tags": ["Bottomup"],
+        "summary": "add feedbackgeber",
+        "operationId": "addFeedbackgeber",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "feedbacknehmerid",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageTeilnehmerAssignmentResource" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BottomUpMappingResource" } } }
+          },
+          "400": {
+            "description": "Invalid Umfrage supplied",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BottomUpMappingResource" } } }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BottomUpMappingResource" } } }
+          },
+          "404": {
+            "description": "Umfrage or Feedbacknehmer not found",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BottomUpMappingResource" } } }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/email/template": {
+      "get": {
+        "tags": ["E-Mail Template"],
+        "summary": "List E-Mail Templates",
+        "description": "Returns a list containing all existing E-Mail Template",
+        "operationId": "listEmailTemplates",
+        "parameters": [{ "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } }],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "*/*": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/EMailTemplateResource" } }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "*/*": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/EMailTemplateResource" } }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["E-Mail Template"],
+        "summary": "Create E-Mail Templates",
+        "description": "Returns the created E-Mail Template",
+        "operationId": "createEmailTemplates",
+        "parameters": [{ "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/EMailTemplateDataResource" } } },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/EMailTemplateResource" } } }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/EMailTemplateResource" } } }
+          }
+        }
+      }
+    },
+    "/umfrage/{id}/archive": {
+      "patch": {
+        "tags": ["Umfrage"],
+        "summary": "archive umfrage",
+        "operationId": "archiveUmfrage",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageArchiveResource" } } }
+        },
+        "responses": {
+          "200": { "description": "successful operation" },
+          "404": { "description": "umfrage not found" },
+          "500": {
+            "description": "Internal server error",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorCodeResponse" } } }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/umfrage": {
+      "get": {
+        "tags": ["UmfrageList", "Umfrage"],
+        "summary": "get all umfragen",
+        "operationId": "getUmfrageList",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "includeArchived",
+            "in": "query",
+            "description": "Optional flag to filter umfrages by archived status.",
+            "required": false,
+            "schema": { "type": "boolean" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/UmfrageResource" } }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/umfrage/{umfrage}/communication/template": {
+      "get": {
+        "tags": ["Umfrage - Communication Template"],
+        "summary": "Returns all Templates assigned to the Umfrage",
+        "operationId": "getUmfrageTemplate",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          { "name": "umfrage", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "*/*": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/EMailTemplateResource" } }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "*/*": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/EMailTemplateResource" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/umfrage/{umfrage}/communication/template/{template}/test": {
+      "get": {
+        "tags": ["Umfrage - Communication Template"],
+        "summary": "Returns a test mail",
+        "operationId": "testUmfrageTemplate",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          { "name": "umfrage", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } },
+          { "name": "template", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/UmfrageMailExampleResource" } } }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/UmfrageMailExampleResource" } } }
+          }
+        }
+      }
+    },
+    "/umfrage/{id}/umfrageResultOverview": {
+      "get": {
+        "tags": ["UmfrageResultOverview", "Umfrage"],
+        "summary": "get umfrage result overview",
+        "operationId": "getUmfrageResultOverview",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageResultOverviewResource" } }
+            }
+          },
+          "400": {
+            "description": "Umfrage in invalid state",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageResultOverviewResource" } }
+            }
+          },
+          "404": {
+            "description": "Umfrage not found",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageResultOverviewResource" } }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/umfrage/{id}/teilnehmer": {
+      "get": {
+        "tags": ["Umfrageteilnehmer", "Umfrage"],
+        "summary": "get teilnehmer of umfrage",
+        "description": "umfrage id",
+        "operationId": "getUmfrageTeilnehmer",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/TeilnehmerWithOutTokenResource" }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/TeilnehmerWithOutTokenResource" }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/umfrage/{id}/storyline": {
+      "get": {
+        "tags": ["Umfrage"],
+        "summary": "get storyline of umfrage logged in user",
+        "operationId": "getStoryline",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "description": "preferred language",
+            "required": false,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/StorylineResource" } } }
+          },
+          "404": {
+            "description": "Umfrage not found",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/StorylineResource" } } }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/umfrage/{id}/resultEmailPreview": {
+      "get": {
+        "tags": ["ResultEmailPreview", "Umfrage"],
+        "summary": "get preview of resulting mails sent",
+        "operationId": "getResultEmailPreview",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/EmailPreviewResource" } } }
+          },
+          "400": {
+            "description": "Umfrage in invalid state",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/EmailPreviewResource" } } }
+          },
+          "404": {
+            "description": "Umfrage not found",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/EmailPreviewResource" } } }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/umfrage/{id}/mailDomainOverview": {
+      "get": {
+        "tags": ["MailDomainOverview", "Umfrage"],
+        "summary": "get umfrage mail domains overview",
+        "operationId": "getUmfrageMailDomainOverview",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageMailOverviewResource" } }
+            }
+          },
+          "404": {
+            "description": "umfrage not found",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageMailOverviewResource" } }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorCodeResponse" } } }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/umfrage/{id}/mail/test": {
+      "get": {
+        "tags": ["Mail", "Umfrage"],
+        "summary": "get umfrage mail template",
+        "operationId": "getUmfrageMailExample",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageMailExampleResource" } }
+            }
+          },
+          "404": {
+            "description": "umfrage not found",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UmfrageMailExampleResource" } }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorCodeResponse" } } }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/umfrage/{id}/feedbacknehmer": {
+      "get": {
+        "tags": ["Umfrageteilnehmer", "Umfrage"],
+        "summary": "get feedbacknehmer of umfrage",
+        "description": "umfrage id",
+        "operationId": "getUmfrageFeedbacknehmer",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/BottomUpFeedbacknehmerResource" }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/BottomUpFeedbacknehmerResource" }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/umfrage/{id}/bottomupbewertung": {
+      "get": {
+        "tags": ["Umfrageteilnehmer", "Umfrage"],
+        "summary": "get feedbacknehmer - teilnehmer mapping of umfrage",
+        "description": "umfrage id",
+        "operationId": "getBottomUpBewertung",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/BottomUpMappingResource" } }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/BottomUpMappingResource" } }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/umfrage/{id}/auswertung/{feedbacknehmer}": {
+      "get": {
+        "tags": ["auswertung"],
+        "summary": "get auswertung of umfrage for feedbacknehmer",
+        "operationId": "getFeedbacknehmerAuswertung",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "feedbacknehmer",
+            "in": "path",
+            "description": "feedbacknehmer id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/AuswertungFeedbacknehmerResource" } }
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/AuswertungFeedbacknehmerResource" } }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/pdfexportjobs/{id}": {
+      "get": {
+        "tags": ["pdfexportjobs"],
+        "summary": "Get status of given job",
+        "description": "This can only be done by the logged in admin",
+        "operationId": "getJobsStatusOfJob",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operation successful",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/PdfExportJobStatusResource" } }
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/PdfExportJobStatusResource" } }
+            }
+          },
+          "404": {
+            "description": "job not found",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/PdfExportJobStatusResource" } }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["pdfexportjobs"],
+        "summary": "abort and delete given job",
+        "description": "This can only be done by the logged in admin",
+        "operationId": "deleteExportJob",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "201": { "description": "operation successful" },
+          "400": { "description": "Invalid id supplied" },
+          "404": { "description": "job not found" }
+        }
+      }
+    },
+    "/feedbacknehmer/{id}/auswertung": {
+      "get": {
+        "tags": ["auswertung"],
+        "summary": "get auswertung of umfrage for feedbacknehmer",
+        "operationId": "getFeedbacknehmerAuswertungMulti",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "feedbacknehmer id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/AuswertungFeedbacknehmerResource" }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/AuswertungFeedbacknehmerResource" }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/email/template/{id}/test": {
+      "get": {
+        "tags": ["E-Mail Template"],
+        "summary": "Get E-Mail Templates",
+        "description": "Returns the requested E-Mail Template",
+        "operationId": "testEmailTemplate",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/UmfrageMailExampleResource" } } }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/UmfrageMailExampleResource" } } }
+          }
+        }
+      }
+    },
+    "/email/template/info/mediaType/{mediaType}/templateType/{templateType}": {
+      "get": {
+        "tags": ["E-Mail Template"],
+        "summary": "Get E-Mail Template Info",
+        "description": "Returns info about the available template variables for this survey",
+        "operationId": "getEmailTemplateInfo",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          { "name": "mediaType", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "templateType", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "*/*": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/MailTemplateVariableResource" } }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "*/*": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/MailTemplateVariableResource" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/{id}/feedbacknehmer": {
+      "get": {
+        "tags": ["dashboard-controller"],
+        "operationId": "getFeedbacknehmerDashboardInfo",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of the umfrage",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "namesearch",
+            "in": "query",
+            "description": "Optional name search parameter",
+            "required": false,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "reportgroups",
+            "in": "query",
+            "description": "Optional list of reportgroups to filter by",
+            "required": false,
+            "schema": { "type": "array", "items": { "type": "string" } }
+          },
+          { "name": "pageable", "in": "query", "required": true, "schema": { "$ref": "#/components/schemas/Pageable" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": { "schema": { "$ref": "#/components/schemas/PagedModelDashboardFeedbacknehmerResource" } }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/overview": {
+      "get": {
+        "tags": ["dashboard-controller"],
+        "operationId": "getDashboardOverview",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/DashboardOverviewResource" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feedbacknehmer/{feedbacknehmerid}/feedbackgeber/{umfrageteilnehmerId}": {
+      "delete": {
+        "tags": ["UmfrageTeilnehmer"],
+        "summary": "remove bottomup releation between feedbackgeber and feedbacknehmer",
+        "operationId": "deleteBottomupRelation",
+        "parameters": [
+          { "name": "Authorization", "in": "header", "required": true, "schema": { "type": "string" } },
+          {
+            "name": "feedbacknehmerid",
+            "in": "path",
+            "description": "umfrage id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "umfrageteilnehmerId",
+            "in": "path",
+            "description": "umfrageteilnehmerId",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "201": { "description": "operation successful" },
+          "400": { "description": "Invalid id supplied" },
+          "404": { "description": "Umfrageteilnehmer not found" }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UmfrageTeilnehmerResource": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "firma": { "type": "string" },
+          "funktion": { "type": "string" },
+          "vorname": { "type": "string" },
+          "nachname": { "type": "string" },
+          "email": { "type": "string" },
+          "handynummer": { "type": "string" },
+          "geschlecht": { "type": "string" },
+          "geburtsjahr": { "type": "integer", "format": "int32" },
+          "abteilung": { "type": "string" },
+          "standort": { "type": "string" }
+        }
+      },
+      "UmfrageTeilnehmerDataResource": {
+        "type": "object",
+        "properties": {
+          "firma": { "type": "string" },
+          "funktion": { "type": "string" },
+          "vorname": { "type": "string" },
+          "nachname": { "type": "string" },
+          "email": { "type": "string" },
+          "handynummer": { "type": "string" },
+          "geschlecht": { "type": "string" },
+          "geburtsjahr": { "type": "integer", "format": "int32" },
+          "abteilung": { "type": "string" },
+          "standort": { "type": "string" },
+          "umfrageId": { "type": "string", "format": "uuid" }
+        },
+        "description": "new Umfrageteilnehmer"
+      },
+      "AntwortDataResource": {
+        "type": "object",
+        "properties": {
+          "frageId": { "type": "string", "format": "uuid" },
+          "werteAntwort": { "type": "number" },
+          "textAntwort": { "type": "string" }
+        }
+      },
+      "FrageResource": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "stableId": { "type": "string", "format": "uuid" },
+          "sortorder": { "type": "integer", "format": "int32" },
+          "tag": { "$ref": "#/components/schemas/TagResource" },
+          "typ": { "type": "string" },
+          "stufen": { "type": "integer", "format": "int32" },
+          "text": { "$ref": "#/components/schemas/TextModuleResource" },
+          "shorttext": { "$ref": "#/components/schemas/TextModuleResource" },
+          "selbstBewertungText": { "$ref": "#/components/schemas/TextModuleResource" },
+          "selbstBewertungShorttext": { "$ref": "#/components/schemas/TextModuleResource" },
+          "mintext": { "$ref": "#/components/schemas/TextModuleResource" },
+          "maxtext": { "$ref": "#/components/schemas/TextModuleResource" },
+          "fragenKatalogName": { "type": "string" },
+          "fragenKatalogId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "KundeResource": {
+        "type": "object",
+        "properties": { "id": { "type": "string", "format": "uuid" }, "name": { "type": "string" } }
+      },
+      "TagResource": {
+        "type": "object",
+        "properties": { "id": { "type": "string", "format": "uuid" }, "name": { "type": "string" } }
+      },
+      "TextModuleResource": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "defaultText": { "type": "string" },
+          "translations": { "type": "array", "items": { "$ref": "#/components/schemas/TextModuleTranslationResource" } }
+        }
+      },
+      "TextModuleTranslationResource": {
+        "type": "object",
+        "properties": {
+          "language": { "maxLength": 2, "minLength": 0, "type": "string", "enum": ["en", "de"] },
+          "translatedText": { "type": "string" }
+        }
+      },
+      "UmfrageResource": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string" },
+          "status": { "type": "string" },
+          "startDate": { "type": "string", "format": "date-time" },
+          "endDate": { "type": "string", "format": "date-time" },
+          "remindDate": { "type": "string", "format": "date-time" },
+          "defaultStufen": { "type": "integer", "format": "int32" },
+          "defaultMintext": { "type": "string" },
+          "defaultMaxtext": { "type": "string" },
+          "selbstbewertungOf": { "type": "string", "format": "uuid" },
+          "archived": { "type": "boolean" },
+          "fragenKatalogName": { "type": "string" },
+          "fragenKatalogId": { "type": "string", "format": "uuid" },
+          "kunde": { "$ref": "#/components/schemas/KundeResource" },
+          "fragen": { "type": "array", "items": { "$ref": "#/components/schemas/FrageResource" } }
+        }
+      },
+      "UmfrageDataResource": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "startDate": { "type": "string", "format": "date-time" },
+          "endDate": { "type": "string", "format": "date-time" },
+          "remindDate": { "type": "string", "format": "date-time" },
+          "defaultStufen": { "type": "integer", "format": "int32" },
+          "defaultMintext": { "type": "string" },
+          "defaultMaxtext": { "type": "string" },
+          "selbstbewertungOf": { "type": "string", "format": "uuid" },
+          "fragenKatalogId": { "type": "string", "format": "uuid" },
+          "kundeId": { "type": "string", "format": "uuid" }
+        },
+        "description": "umfrage object"
+      },
+      "ErrorCodeResponse": { "type": "object", "properties": { "errorcode": { "type": "string" } } },
+      "ScheduleUmfrageDataResource": {
+        "type": "object",
+        "properties": {
+          "startDate": { "type": "string", "format": "date-time" },
+          "endDate": { "type": "string", "format": "date-time" },
+          "remindDate": { "type": "string", "format": "date-time" }
+        },
+        "description": "schedule umfrage object"
+      },
+      "UmfrageMailDataResource": {
+        "type": "object",
+        "properties": { "mailtemplate": { "type": "string" } },
+        "description": "schedule umfrage object"
+      },
+      "TeilnehmerWithOutTokenResource": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "vorname": { "type": "string" },
+          "nachname": { "type": "string" },
+          "email": { "type": "string" },
+          "firma": { "type": "string" },
+          "abteilung": { "type": "string" },
+          "standort": { "type": "string" },
+          "funktion": { "type": "string" },
+          "handynummer": { "type": "string" },
+          "geschlecht": { "type": "string" },
+          "geburtsjahr": { "type": "integer", "format": "int32" }
+        }
+      },
+      "TeilnehmerDataResource": {
+        "type": "object",
+        "properties": {
+          "vorname": { "type": "string" },
+          "nachname": { "type": "string" },
+          "email": { "type": "string" },
+          "firma": { "type": "string" },
+          "abteilung": { "type": "string" },
+          "standort": { "type": "string" },
+          "funktion": { "type": "string" },
+          "handynummer": { "type": "string" },
+          "geschlecht": { "type": "string" },
+          "geburtsjahr": { "type": "integer", "format": "int32" },
+          "preferredLanguage": { "maxLength": 2, "minLength": 2, "type": "string" }
+        },
+        "description": "Teilnehmer to add"
+      },
+      "TagDataResource": {
+        "type": "object",
+        "properties": { "name": { "type": "string" } },
+        "description": "Tag to add"
+      },
+      "FragenKatalogUpdateResource": {
+        "required": ["name"],
+        "type": "object",
+        "properties": { "name": { "type": "string" } }
+      },
+      "FragenKatalogResource": {
+        "required": ["editable", "id", "name"],
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "id": { "type": "string", "format": "uuid" },
+          "editable": { "type": "boolean" },
+          "fragen": { "type": "array", "items": { "$ref": "#/components/schemas/FrageResource" } },
+          "usedInUmfragen": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/FragenKatalogUmfrageResource" }
+          }
+        }
+      },
+      "FragenKatalogUmfrageResource": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "id": { "type": "string", "format": "uuid" },
+          "hasSelbstbewertung": { "type": "boolean" },
+          "archived": { "type": "boolean" },
+          "status": { "type": "string", "enum": ["NEW", "SCHEDULED", "RUNNING", "FINISHED", "VERIFIED", "PUBLISHED"] },
+          "selbstbewertungOf": { "$ref": "#/components/schemas/UmfrageReferenceResource" }
+        }
+      },
+      "UmfrageReferenceResource": {
+        "type": "object",
+        "properties": { "name": { "type": "string" }, "id": { "type": "string", "format": "uuid" } }
+      },
+      "FrageDataResource": {
+        "type": "object",
+        "properties": {
+          "typ": { "type": "string" },
+          "stufen": { "type": "integer", "format": "int32" },
+          "text": { "$ref": "#/components/schemas/TextModuleResource" },
+          "shorttext": { "$ref": "#/components/schemas/TextModuleResource" },
+          "selbstBewertungText": { "$ref": "#/components/schemas/TextModuleResource" },
+          "selbstBewertungShorttext": { "$ref": "#/components/schemas/TextModuleResource" },
+          "mintext": { "$ref": "#/components/schemas/TextModuleResource" },
+          "maxtext": { "$ref": "#/components/schemas/TextModuleResource" },
+          "tagId": { "type": "string", "format": "uuid" }
+        },
+        "description": "Frage to add"
+      },
+      "BottomUpFeedbacknehmerResource": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "firma": { "type": "string" },
+          "funktion": { "type": "string" },
+          "vorname": { "type": "string" },
+          "nachname": { "type": "string" },
+          "email": { "type": "string" },
+          "handynummer": { "type": "string" },
+          "geschlecht": { "type": "string" },
+          "geburtsjahr": { "type": "integer", "format": "int32" },
+          "abteilung": { "type": "string" },
+          "standort": { "type": "string" },
+          "schwellenwertemailadresse": { "type": "string" },
+          "reportgroup": { "type": "string" }
+        }
+      },
+      "FeedbacknehmerMappingResource": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "mapping": { "type": "array", "items": { "$ref": "#/components/schemas/BottomUpFeedbacknehmerResource" } }
+        }
+      },
+      "FeedbacknehmerMappingDataResource": {
+        "type": "object",
+        "properties": { "mapping": { "type": "array", "items": { "type": "string", "format": "uuid" } } },
+        "description": "updated Mapping"
+      },
+      "EMailTemplateDataResource": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "displayName": { "type": "string" },
+          "subject": { "$ref": "#/components/schemas/TextModule" },
+          "template": { "$ref": "#/components/schemas/TextModule" },
+          "templateType": { "type": "string", "enum": ["LOGIN_CREDENTIALS", "REMINDER", "REPORT", "REPORT_THRESHOLD"] },
+          "mediaType": { "type": "string", "enum": ["EMAIL", "SMS"] }
+        }
+      },
+      "TextModule": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "defaultText": { "type": "string" },
+          "translations": { "type": "array", "items": { "$ref": "#/components/schemas/TextModuleTranslation" } }
+        }
+      },
+      "TextModuleTranslation": {
+        "type": "object",
+        "properties": {
+          "textModuleId": { "type": "string", "format": "uuid" },
+          "language": { "type": "string", "enum": ["de", "en"] },
+          "translatedText": { "type": "string" }
+        }
+      },
+      "EMailTemplateResource": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string" },
+          "displayName": { "type": "string" },
+          "subject": { "$ref": "#/components/schemas/TextModule" },
+          "template": { "$ref": "#/components/schemas/TextModule" },
+          "status": { "type": "string" },
+          "templateType": { "type": "string", "enum": ["LOGIN_CREDENTIALS", "REMINDER", "REPORT", "REPORT_THRESHOLD"] },
+          "mediaType": { "type": "string", "enum": ["EMAIL", "SMS"] }
+        }
+      },
+      "TeilnehmerLoginGenerationItem": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "token": { "type": "string" },
+          "email": { "type": "string" }
+        }
+      },
+      "UmfrageResultEmailQueueResultResource": {
+        "type": "object",
+        "properties": {
+          "numberOfQueuedResultMails": { "type": "number" },
+          "numberOfQueuedSchwellenwertMails": { "type": "number" }
+        }
+      },
+      "BottomUpImportErrorResource": {
+        "type": "object",
+        "properties": {
+          "invalidMails": { "$ref": "#/components/schemas/BottomUpImportInvalidMailsResource" },
+          "noMails": { "$ref": "#/components/schemas/UmfrageMailOverviewResourceNoMails" },
+          "feedbacknehmerWithNotEnoughFeedbackgeber": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/BottomUpImportFeedbacknehmerCounts" }
+          }
+        }
+      },
+      "BottomUpImportFeedbacknehmerCounts": {
+        "type": "object",
+        "properties": { "email": { "type": "string" }, "feedbackgeberCount": { "type": "integer", "format": "int32" } }
+      },
+      "BottomUpImportInvalidMailElementResource": {
+        "type": "object",
+        "properties": {
+          "vorname": { "type": "string" },
+          "nachname": { "type": "string" },
+          "email": { "type": "string" }
+        }
+      },
+      "BottomUpImportInvalidMailsResource": {
+        "type": "object",
+        "properties": {
+          "feedbacknehmer": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/BottomUpImportInvalidMailElementResource" }
+          },
+          "teilnehmer": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/BottomUpImportInvalidMailElementResource" }
+          }
+        }
+      },
+      "BottomUpMappingResource": {
+        "type": "object",
+        "properties": {
+          "feedbacknehmer": { "$ref": "#/components/schemas/BottomUpFeedbacknehmerResource" },
+          "feedbackgeber": { "type": "array", "items": { "$ref": "#/components/schemas/UmfrageTeilnehmerResource" } }
+        }
+      },
+      "BottomupImportResultResource": {
+        "type": "object",
+        "properties": {
+          "mailDomainCounts": { "type": "array", "items": { "$ref": "#/components/schemas/MailDomainCountsResource" } },
+          "importErrorResource": { "$ref": "#/components/schemas/BottomUpImportErrorResource" },
+          "result": { "type": "array", "items": { "$ref": "#/components/schemas/BottomUpMappingResource" } }
+        }
+      },
+      "MailDomainCountsResource": {
+        "type": "object",
+        "properties": { "domain": { "type": "string" }, "count": { "type": "integer", "format": "int32" } }
+      },
+      "UmfrageMailOverviewResourceNoMails": {
+        "type": "object",
+        "properties": {
+          "feedbacknehmer": { "type": "array", "items": { "type": "string" } },
+          "teilnehmer": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "RemindUmfrageResult": {
+        "type": "object",
+        "properties": { "numberOfQueuedRemindMails": { "type": "integer", "format": "int32" } }
+      },
+      "PdfExportJobResource": { "type": "object", "properties": { "jobId": { "type": "string", "format": "uuid" } } },
+      "NewPdfExportJobResource": {
+        "type": "object",
+        "properties": {
+          "url": { "type": "string" },
+          "umfrageId": { "type": "string", "format": "uuid" },
+          "feedbacknehmerIds": { "type": "array", "items": { "type": "string", "format": "uuid" } }
+        },
+        "description": "Job To Queue"
+      },
+      "TeilnehmerWithTokenResource": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "vorname": { "type": "string" },
+          "nachname": { "type": "string" },
+          "email": { "type": "string" },
+          "token": { "type": "string" },
+          "firma": { "type": "string" },
+          "abteilung": { "type": "string" },
+          "standort": { "type": "string" },
+          "funktion": { "type": "string" },
+          "handynummer": { "type": "string" },
+          "geschlecht": { "type": "string" },
+          "geburtsjahr": { "type": "integer", "format": "int32" }
+        }
+      },
+      "TokenLoginResource": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string" },
+          "umfrage": { "type": "string", "format": "uuid" },
+          "token": { "type": "string" }
+        },
+        "description": "teilnehmerlogin"
+      },
+      "FragenKatalogCreationResource": {
+        "required": ["editable", "name"],
+        "type": "object",
+        "properties": { "name": { "type": "string" }, "editable": { "type": "boolean" } }
+      },
+      "FragenKatalogUmfrageCreationResource": {
+        "required": ["name"],
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "startDate": { "type": "string", "format": "date-time" },
+          "endDate": { "type": "string", "format": "date-time" },
+          "remindDate": { "type": "string", "format": "date-time" },
+          "defaultStufen": { "type": "integer", "format": "int32" },
+          "defaultMintext": { "type": "string" },
+          "defaultMaxtext": { "type": "string" },
+          "createSelbstbewertung": { "type": "boolean" }
+        }
+      },
+      "FragenKatalogCopyCreationResource": {
+        "required": ["name"],
+        "type": "object",
+        "properties": { "name": { "type": "string" } }
+      },
+      "UmfrageTeilnehmerAssignmentResource": {
+        "type": "object",
+        "properties": {
+          "umfrageTeilnehmerToAdd": { "type": "array", "items": { "type": "string", "format": "uuid" } }
+        },
+        "description": "ids to add"
+      },
+      "UmfrageArchiveResource": {
+        "type": "object",
+        "properties": { "archived": { "type": "boolean" } },
+        "description": "change archivestatus"
+      },
+      "UmfrageMailExampleResource": { "type": "object", "properties": { "mail": { "type": "string" } } },
+      "UmfrageTeilnehmerOverviewResource": {
+        "type": "object",
+        "properties": {
+          "assignedUmfrageTeilnehmer": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/UmfrageTeilnehmerWithAssignmentResource" }
+          },
+          "unassignedUmfrageTeilnehmer": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/UmfrageTeilnehmerResource" }
+          }
+        }
+      },
+      "UmfrageTeilnehmerWithAssignmentResource": {
+        "type": "object",
+        "properties": {
+          "umfrageTeilnehmer": { "$ref": "#/components/schemas/UmfrageTeilnehmerResource" },
+          "assignedTo": { "$ref": "#/components/schemas/UmfrageTeilnehmerWithAssignmentResourceAssignedTo" }
+        }
+      },
+      "UmfrageTeilnehmerWithAssignmentResourceAssignedTo": {
+        "type": "object",
+        "properties": {
+          "feedbacknehmerId": { "type": "string", "format": "uuid" },
+          "feedbacknehmerEmail": { "type": "string" }
+        }
+      },
+      "FeedbacknehmerBelowSchwellenwertResource": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "vorname": { "type": "string" },
+          "nachname": { "type": "string" },
+          "feedbacknehmerEmail": { "type": "string" },
+          "schwellenwertEmail": { "type": "string" },
+          "tagsBelowSchwellenwert": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/TagBelowSchwellenwertResource" }
+          }
+        }
+      },
+      "FeedbacknehmerWithNotEnoughAnswersResource": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "vorname": { "type": "string" },
+          "nachname": { "type": "string" },
+          "email": { "type": "string" },
+          "schwellenwertemailadresse": { "type": "string" },
+          "reportgroup": { "type": "string" },
+          "finishedFeedbackgebercount": { "type": "integer", "format": "int32" }
+        }
+      },
+      "TagBelowSchwellenwertResource": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string" },
+          "personalResult": { "type": "number" }
+        }
+      },
+      "UmfrageResultOverviewResource": {
+        "type": "object",
+        "properties": {
+          "umfrageId": { "type": "string", "format": "uuid" },
+          "numberOfTotalParticipants": { "type": "integer", "format": "int32" },
+          "numberOfFinishedParticipants": { "type": "integer", "format": "int32" },
+          "numberOfFinishedSelbstbewertungen": { "type": "integer", "format": "int32" },
+          "feedbacknehmerWithNotEnoughAnswers": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/FeedbacknehmerWithNotEnoughAnswersResource" }
+          },
+          "feedbacknehmerBelowSchwellenwert": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/FeedbacknehmerBelowSchwellenwertResource" }
+          }
+        }
+      },
+      "StorylineFrageResource": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "stableId": { "type": "string", "format": "uuid" },
+          "sortorder": { "type": "integer", "format": "int32" },
+          "tag": { "$ref": "#/components/schemas/TagResource" },
+          "typ": { "type": "string" },
+          "stufen": { "type": "integer", "format": "int32" },
+          "text": { "type": "string" },
+          "shorttext": { "type": "string" },
+          "selbstBewertungText": { "type": "string" },
+          "selbstBewertungShorttext": { "$ref": "#/components/schemas/TextModuleResource" },
+          "mintext": { "type": "string" },
+          "maxtext": { "type": "string" },
+          "fragenKatalogName": { "type": "string" },
+          "fragenKatalogId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "StorylineResource": {
+        "type": "object",
+        "properties": {
+          "teilnehmerId": { "type": "string", "format": "uuid" },
+          "umfrage": { "$ref": "#/components/schemas/StorylineUmfrageResource" },
+          "bewertet": { "$ref": "#/components/schemas/BottomUpFeedbacknehmerResource" },
+          "fragen": { "type": "array", "items": { "$ref": "#/components/schemas/StorylineFrageResource" } }
+        }
+      },
+      "StorylineUmfrageResource": {
+        "type": "object",
+        "properties": {
+          "umfrageId": { "type": "string", "format": "uuid" },
+          "isSelbstbewertungOf": { "type": "string", "format": "uuid" },
+          "defaultStufen": { "type": "integer", "format": "int32" },
+          "defaultMintext": { "type": "string" },
+          "defaultMaxtext": { "type": "string" }
+        }
+      },
+      "EmailPreviewResource": {
+        "type": "object",
+        "properties": {
+          "umfrageId": { "type": "string", "format": "uuid" },
+          "emailsToBeSent": { "$ref": "#/components/schemas/EmailsToBeSentResource" },
+          "feedbacknehmerWithoutEMails": { "$ref": "#/components/schemas/FeedbacknehmerWithoutEmailsResource" }
+        }
+      },
+      "EmailsToBeSentResource": {
+        "type": "object",
+        "properties": {
+          "schwellenwertFeatureEnabled": { "type": "boolean" },
+          "schwellenwertmails": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SchwellenwertMailPreviewResource" }
+          },
+          "resultmails": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/FeedbacknehmerResultMailPreviewResource" }
+          }
+        }
+      },
+      "FeedbacknehmerResultMailPreviewResource": {
+        "type": "object",
+        "properties": {
+          "feedbacknehmerEmail": { "type": "string" },
+          "feedbacknehmerId": { "type": "string" },
+          "vorname": { "type": "string" },
+          "nachname": { "type": "string" },
+          "reportgroup": { "type": "string" },
+          "pdfPath": { "type": "string" },
+          "pdfCreationTimestamp": { "type": "string" }
+        }
+      },
+      "FeedbacknehmerWithoutEmailsResource": {
+        "type": "object",
+        "properties": {
+          "feedbacknehmerWithoutResults": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/FeedbacknehmerWithoutResultMailPreviewResource" }
+          },
+          "feedbacknehmerWithNotEnoughAnswers": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/FeedbacknehmerWithNotEnoughAnswersResource" }
+          }
+        }
+      },
+      "FeedbacknehmerWithoutResultMailPreviewResource": {
+        "type": "object",
+        "properties": {
+          "feedbacknehmerEmail": { "type": "string" },
+          "feedbacknehmerId": { "type": "string" },
+          "vorname": { "type": "string" },
+          "nachname": { "type": "string" },
+          "reportgroup": { "type": "string" }
+        }
+      },
+      "SchwellenwertMailPreviewResource": {
+        "type": "object",
+        "properties": {
+          "schwellenwertMailReceiver": { "type": "string" },
+          "feedbacknehmerId": { "type": "string" },
+          "vorname": { "type": "string" },
+          "nachname": { "type": "string" },
+          "feedbacknehmerEmail": { "type": "string" },
+          "tagsBelowSchwellenwert": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/TagBelowSchwellenwertResource" }
+          }
+        }
+      },
+      "MailTemplateVariableResource": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "keyword": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      },
+      "UmfrageMailResource": {
+        "type": "object",
+        "properties": {
+          "mailTemplate": { "type": "string" },
+          "availableVariables": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/MailTemplateVariableResource" }
+          }
+        }
+      },
+      "InvalidEmailResource": {
+        "type": "object",
+        "properties": { "email": { "type": "string" }, "id": { "type": "string", "format": "uuid" } }
+      },
+      "UmfrageMailOverviewResource": {
+        "type": "object",
+        "properties": {
+          "mailDomainCounts": { "type": "array", "items": { "$ref": "#/components/schemas/MailDomainCountsResource" } },
+          "invalidMails": { "$ref": "#/components/schemas/UmfrageMailOverviewResourceInvalidMails" },
+          "noMails": { "$ref": "#/components/schemas/UmfrageMailOverviewResourceNoMails" }
+        }
+      },
+      "UmfrageMailOverviewResourceInvalidMails": {
+        "type": "object",
+        "properties": {
+          "feedbacknehmer": { "type": "array", "items": { "$ref": "#/components/schemas/InvalidEmailResource" } },
+          "teilnehmer": { "type": "array", "items": { "$ref": "#/components/schemas/InvalidEmailResource" } }
+        }
+      },
+      "AuswertungFeedbacknehmerResource": {
+        "type": "object",
+        "properties": {
+          "umfrage": { "$ref": "#/components/schemas/UmfrageInfoResource" },
+          "feedbacknehmer": { "$ref": "#/components/schemas/AuswertungPersonalResource" }
+        }
+      },
+      "AuswertungFragePersonalResource": {
+        "type": "object",
+        "properties": {
+          "frage": { "$ref": "#/components/schemas/UmfrageFrageResource" },
+          "averageCalculationResult": { "$ref": "#/components/schemas/AverageCalculationResultResource" },
+          "medianCalculationResult": { "$ref": "#/components/schemas/MedianCalculationResultResource" },
+          "personalmaximum": { "type": "number" },
+          "personalminimum": { "type": "number" },
+          "self": { "type": "number" },
+          "receivedAnswerCount": { "type": "integer", "format": "int32" }
+        }
+      },
+      "AuswertungPersonalResource": {
+        "type": "object",
+        "properties": {
+          "person": { "$ref": "#/components/schemas/BottomUpFeedbacknehmerResource" },
+          "info": { "$ref": "#/components/schemas/UmfrageInfoPersonalResource" },
+          "tags": { "type": "array", "items": { "$ref": "#/components/schemas/AuswertungTagPersonalResource" } },
+          "textantworten": { "type": "array", "items": { "$ref": "#/components/schemas/AuswertungTextResource" } },
+          "selftextantworten": { "type": "array", "items": { "$ref": "#/components/schemas/AuswertungTextResource" } },
+          "averageCalculationResult": { "$ref": "#/components/schemas/AverageCalculationResultResource" },
+          "medianCalculationResult": { "$ref": "#/components/schemas/MedianCalculationResultResource" },
+          "self": { "type": "number" }
+        }
+      },
+      "AuswertungTagPersonalResource": {
+        "type": "object",
+        "properties": {
+          "tag": { "$ref": "#/components/schemas/TagResource" },
+          "averageCalculationResult": { "$ref": "#/components/schemas/AverageCalculationResultResource" },
+          "medianCalculationResult": { "$ref": "#/components/schemas/MedianCalculationResultResource" },
+          "personalmaximum": { "type": "number" },
+          "personalminimum": { "type": "number" },
+          "self": { "type": "number" },
+          "fragen": { "type": "array", "items": { "$ref": "#/components/schemas/AuswertungFragePersonalResource" } }
+        }
+      },
+      "AuswertungTextResource": {
+        "type": "object",
+        "properties": {
+          "frage": { "$ref": "#/components/schemas/UmfrageFrageResource" },
+          "antworten": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "AverageCalculationResultResource": {
+        "type": "object",
+        "properties": {
+          "minimum": { "type": "number" },
+          "average": { "type": "number" },
+          "maximum": { "type": "number" },
+          "personal": { "type": "number" }
+        }
+      },
+      "MedianCalculationResultResource": {
+        "type": "object",
+        "properties": {
+          "minimum": { "type": "number" },
+          "average": { "type": "number" },
+          "maximum": { "type": "number" },
+          "personal": { "type": "number" }
+        }
+      },
+      "PersonalAuswertungReportGroupInfo": {
+        "type": "object",
+        "properties": {
+          "reportgroup": { "type": "string" },
+          "feedbacknehmerInGroup": { "type": "integer", "format": "int32" },
+          "finishedParticipantsInGroup": { "type": "integer", "format": "int32" },
+          "totalParticipantsInGroup": { "type": "integer", "format": "int32" }
+        }
+      },
+      "UmfrageFrageResource": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "stableId": { "type": "string", "format": "uuid" },
+          "tag": { "$ref": "#/components/schemas/TagResource" },
+          "generatedFromFrage": { "type": "string", "format": "uuid" },
+          "typ": { "type": "string" },
+          "stufen": { "type": "integer", "format": "int32" },
+          "text": { "$ref": "#/components/schemas/TextModuleResource" },
+          "shorttext": { "$ref": "#/components/schemas/TextModuleResource" },
+          "mintext": { "$ref": "#/components/schemas/TextModuleResource" },
+          "maxtext": { "$ref": "#/components/schemas/TextModuleResource" }
+        }
+      },
+      "UmfrageInfoPersonalResource": {
+        "type": "object",
+        "properties": {
+          "reportGroupInfo": { "$ref": "#/components/schemas/PersonalAuswertungReportGroupInfo" },
+          "personalParticipants": { "type": "integer", "format": "int32" },
+          "personalFinishedParticipants": { "type": "integer", "format": "int32" }
+        }
+      },
+      "UmfrageInfoResource": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string" },
+          "status": { "type": "string" },
+          "startDate": { "type": "string", "format": "date-time" },
+          "endDate": { "type": "string", "format": "date-time" },
+          "totalParticipants": { "type": "integer", "format": "int32" },
+          "finishedParticipants": { "type": "integer", "format": "int32" },
+          "stufen": { "type": "integer", "format": "int32" }
+        }
+      },
+      "PdfExportJobStatusResource": {
+        "type": "object",
+        "properties": {
+          "jobId": { "type": "string", "format": "uuid" },
+          "umfrage": { "type": "string", "format": "uuid" },
+          "callbackUrl": { "type": "string" },
+          "createdAt": { "type": "string" },
+          "status": { "type": "string" },
+          "progress": { "$ref": "#/components/schemas/PdfExportJobStatusResourceProgress" },
+          "errorneousFeedbacknehmer": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PdfExportJobStatusResourceErrorneousFeedbacknehmerInner" }
+          }
+        }
+      },
+      "PdfExportJobStatusResourceErrorneousFeedbacknehmerInner": {
+        "type": "object",
+        "properties": { "email": { "type": "string" }, "id": { "type": "string" } }
+      },
+      "PdfExportJobStatusResourceProgress": {
+        "type": "object",
+        "properties": {
+          "completed": { "type": "integer", "format": "int32" },
+          "total": { "type": "integer", "format": "int32" }
+        }
+      },
+      "Pageable": {
+        "type": "object",
+        "properties": {
+          "page": { "minimum": 0, "type": "integer", "format": "int32" },
+          "size": { "minimum": 1, "type": "integer", "format": "int32" },
+          "sort": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "DashboardFeedbacknehmerResource": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "firma": { "type": "string" },
+          "abteilung": { "type": "string" },
+          "standort": { "type": "string" },
+          "funktion": { "type": "string" },
+          "handynummer": { "type": "string" },
+          "email": { "type": "string" },
+          "vorname": { "type": "string" },
+          "nachname": { "type": "string" },
+          "schwellenwertemailadresse": { "type": "string" },
+          "reportgroup": { "type": "string" },
+          "feedbackgeberCount": { "type": "integer", "format": "int64" },
+          "finishedCount": { "type": "integer", "format": "int64" },
+          "receivesReport": { "type": "boolean" },
+          "selbstbewertungStatus": { "type": "string", "enum": ["COMPLETED", "NOT_COMPLETED", "NO_SELBSTBEWERTUNG"] }
+        }
+      },
+      "PageMetadata": {
+        "type": "object",
+        "properties": {
+          "size": { "type": "integer", "format": "int64" },
+          "number": { "type": "integer", "format": "int64" },
+          "totalElements": { "type": "integer", "format": "int64" },
+          "totalPages": { "type": "integer", "format": "int64" }
+        }
+      },
+      "PagedModelDashboardFeedbacknehmerResource": {
+        "type": "object",
+        "properties": {
+          "content": { "type": "array", "items": { "$ref": "#/components/schemas/DashboardFeedbacknehmerResource" } },
+          "page": { "$ref": "#/components/schemas/PageMetadata" }
+        }
+      },
+      "DashboardOverviewResource": {
+        "required": ["createdAt", "endDate", "id", "name", "remindDate", "startedAt", "status", "type"],
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string" },
+          "type": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "startedAt": { "type": "string", "format": "date-time" },
+          "remindDate": { "type": "string", "format": "date-time" },
+          "endDate": { "type": "string", "format": "date-time" },
+          "status": { "type": "string", "enum": ["NEW", "SCHEDULED", "RUNNING", "FINISHED", "VERIFIED", "PUBLISHED"] },
+          "feedbackgeberCount": { "type": "integer", "format": "int32" },
+          "feedbacknehmerCount": { "type": "integer", "format": "int32" },
+          "completedFremdbewertungCount": { "type": "integer", "format": "int32" },
+          "requiredNumberOfBewertungen": { "type": "integer", "format": "int32" },
+          "remindStatusResource": { "$ref": "#/components/schemas/RemindStatusResource" },
+          "dashboardSelbstbewertungOverviewResource": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/DashboardSelbstbewertungOverviewResource" }
+          },
+          "reportGroups": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "DashboardSelbstbewertungOverviewResource": {
+        "required": ["endDate", "id", "remindDate", "startedAt", "status"],
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "completedSelbstbewertungCount": { "type": "integer", "format": "int32" },
+          "feedbacknehmerCount": { "type": "integer", "format": "int32" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "startedAt": { "type": "string", "format": "date-time" },
+          "remindDate": { "type": "string", "format": "date-time" },
+          "endDate": { "type": "string", "format": "date-time" },
+          "status": { "type": "string", "enum": ["NEW", "SCHEDULED", "RUNNING", "FINISHED", "VERIFIED", "PUBLISHED"] },
+          "remindStatusResource": { "$ref": "#/components/schemas/RemindStatusResource" }
+        }
+      },
+      "RemindStatusResource": {
+        "type": "object",
+        "properties": {
+          "reminderCanBeSent": { "type": "boolean" },
+          "nextReminderAvailable": { "type": "string", "format": "date-time" },
+          "lastReminderSent": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  }
+}

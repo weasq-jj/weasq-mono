@@ -2,10 +2,10 @@
 
 import { signOut } from 'next-auth/react';
 
-interface FederatedLogoutOptions {
+type FederatedLogoutOptions = {
   endpoint?: string;
   fallbackUrl?: string;
-}
+};
 
 export const federatedLogout = async ({
   endpoint = '/api/auth/federated-logout',

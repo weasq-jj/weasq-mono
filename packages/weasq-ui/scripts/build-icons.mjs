@@ -37,7 +37,16 @@ const build = async () => {
     sprites.add(toSymbolId(fileName), sourceSvg);
   }
 
-  await writeFile(spriteFile, sprites.toString({ inline: true }), 'utf8');
+  let spriteMarkup = sprites.toString({ inline: true });
+
+  if (!spriteMarkup.includes('xmlns="http://www.w3.org/2000/svg"')) {
+    spriteMarkup = spriteMarkup.replace(
+      '<svg',
+      '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1" height="1"',
+    );
+  }
+
+  await writeFile(spriteFile, spriteMarkup, 'utf8');
   console.log(`Built icon sprite: ${spriteFile}`);
 };
 

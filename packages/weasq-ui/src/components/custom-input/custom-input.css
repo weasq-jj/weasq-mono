@@ -1,0 +1,56 @@
+@reference 'tailwindcss';
+@reference '../../styles.css';
+
+.custom-input__container {
+  @apply w-full;
+}
+
+.custom-input {
+  @apply relative flex items-center rounded-lg border border-gray-300 bg-white text-sm;
+}
+
+.custom-input:has(.custom-input__input:not(:disabled):hover) {
+  @apply border-primary-green-500;
+}
+
+.custom-input:has(.custom-input__input:focus-visible) {
+  @apply border-primary-green-500;
+}
+
+.custom-input:has(.custom-input__clear) .custom-input__input {
+  @apply pr-10;
+}
+
+.custom-input__input::placeholder {
+  @apply text-gray-500;
+}
+
+.custom-input:has(.custom-input__input:disabled) {
+  @apply pointer-events-none opacity-40;
+}
+
+.custom-input__input {
+  @apply w-full appearance-none border-none bg-transparent px-4 py-2 focus:outline-none;
+  min-width: 200px;
+}
+
+.custom-input__clear {
+  @apply absolute right-3 h-5 w-5;
+}
+
+.custom-input__leading-icon {
+  @apply ms-2 h-4 w-4 shrink-0 text-gray-500;
+}
+
+.custom-input__clear-icon {
+  @apply h-5 w-5;
+}
+
+.custom-input__clear:hover,
+.custom-input__clear:focus-visible {
+  @apply text-red-500;
+}
+
+.custom-input__label {
+  @apply mb-1 inline-block text-sm text-gray-700;
+}

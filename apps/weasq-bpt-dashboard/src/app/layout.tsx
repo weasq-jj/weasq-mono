@@ -46,18 +46,8 @@ const poppins = Poppins({
 
 const RootLayout = ({ children }: Readonly<{ children: ReactNode }>): ReactNode => {
   return (
-    <html lang="en">
-      <body
-        className={clsx(
-          poppins.variable,
-          'min-h-screen',
-          'bg-slate-950',
-          'text-slate-100',
-          'antialiased',
-        )}
-      >
-        {children}
-      </body>
+    <html className={clsx(poppins.variable)} lang="en">
+      <body className={clsx('min-h-screen bg-white font-sans text-slate-900 antialiased')}>{children}</body>
     </html>
   );
 };

@@ -1,0 +1,6 @@
+@source './**/*.{ts,tsx}';
+
+@theme {
+  --color-primary-green-500: #62bb95;
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+}

@@ -6,6 +6,7 @@
     ".": "./src/index.ts",
     "./server": "./src/server.ts",
     "./client": "./src/client.ts",
+    "./styles.css": "./src/styles.css",
     "./login": "./src/login.tsx",
     "./providers": "./src/providers.tsx",
     "./session-guard": "./src/session-guard.tsx",

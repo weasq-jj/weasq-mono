@@ -1,0 +1,19 @@
+.loader__bars {
+  width: inherit;
+  aspect-ratio: 1;
+  --c: no-repeat linear-gradient(currentColor 0 0, currentColor 100% 100%);
+  background: var(--c), var(--c), var(--c);
+  animation:
+    loader-bars-kf1 1s infinite,
+    loader-bars-kf2 1s infinite;
+}
+
+@keyframes loader-bars-kf1 {
+  0%, 100% { background-size: 20% 100% }
+  33%, 66% { background-size: 20% 20% }
+}
+
+@keyframes loader-bars-kf2 {
+  0%, 33%   { background-position: 0    0, 50% 50%, 100% 100% }
+  66%, 100% { background-position: 100% 0, 50% 50%, 0    100% }
+}

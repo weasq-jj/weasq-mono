@@ -1,0 +1,91 @@
+@reference 'tailwindcss';
+@reference '../../styles.css';
+
+.modal {
+  margin: auto;
+  width: min(36rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  @apply rounded-xl border-none bg-transparent p-0 opacity-0 shadow-none;
+  transform: translateY(0.75rem);
+  transition:
+    opacity 0.2s ease-in-out,
+    transform 0.2s ease-in-out,
+    overlay 0.2s ease-in-out allow-discrete,
+    display 0.2s ease-in-out allow-discrete;
+}
+
+.modal::backdrop {
+  @apply bg-slate-900/0;
+  transition:
+    display 0.2s allow-discrete,
+    overlay 0.2s allow-discrete,
+    background-color 0.2s;
+}
+
+.modal[open] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.modal[open]::backdrop {
+  @apply bg-slate-900/45;
+}
+
+.modal__container {
+  @apply rounded-xl border border-slate-200 bg-white shadow-2xl;
+}
+
+.modal__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.25rem 0.75rem;
+}
+
+.modal__headline {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.modal__title {
+  @apply m-0 text-lg leading-6 font-semibold text-slate-900;
+}
+
+.modal__description {
+  @apply m-0 text-sm leading-5 text-slate-600;
+}
+
+.modal__content {
+  padding: 0 1.25rem 1.25rem;
+}
+
+.modal__close-button {
+  @apply inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700;
+  cursor: pointer;
+}
+
+.modal__close-button:hover,
+.modal__close-button:focus-visible {
+  @apply border-primary-green-500 text-emerald-700;
+}
+
+.modal__close-button:focus-visible {
+  @apply outline-2 outline-offset-2 outline-primary-green-500;
+}
+
+.modal__close-icon {
+  @apply h-4 w-4;
+}
+
+@starting-style {
+  .modal[open] {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+
+  .modal[open]::backdrop {
+    @apply bg-slate-900/0;
+  }
+}

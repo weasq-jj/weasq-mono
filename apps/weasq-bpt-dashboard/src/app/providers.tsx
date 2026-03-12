@@ -3,16 +3,16 @@
 import { type Dictionary } from '@/app/dictionaries';
 import { type Locale } from '@/types/globals';
 import { Providers as AuthProviders } from '@weasq/weasq-auth/providers';
-import { createContext, type ReactNode } from 'react';
+import { DictionaryContext, LocaleContext } from '@weasq/weasq-ui';
+import { type ReactNode } from 'react';
 
-export const LocaleContext = createContext<Locale | null>(null);
-export const DictionaryContext = createContext<Dictionary | null>(null);
+export { DictionaryContext, LocaleContext };
 
-interface ProvidersProps {
+type ProvidersProps = {
   children: ReactNode;
   dictionary: Dictionary;
   locale: Locale;
-}
+};
 
 export const Providers = ({ children, dictionary, locale }: ProvidersProps) => {
   return (

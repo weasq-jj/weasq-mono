@@ -1,7 +1,7 @@
 /** @type {import("prettier").Config} */
 const prettierConfig = {
   plugins: ['prettier-plugin-organize-imports', 'prettier-plugin-tailwindcss'],
-  tailwindFunctions: ['clsx', 'cn', 'cva'],
+  tailwindFunctions: ['clsx'],
   printWidth: 120,
   useTabs: false,
   tabWidth: 2,

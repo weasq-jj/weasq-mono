@@ -1,4 +1,5 @@
 import { getDictionary } from '@/app/dictionaries';
+import LayoutShell from '@/app/[lang]/layout-shell';
 import { Providers } from '@/app/providers';
 import { locales, type Locale } from '@/types/globals';
 import { Login } from '@weasq/weasq-auth/login';
@@ -9,10 +10,10 @@ import { getServerSession } from 'next-auth';
 import type { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
 
-interface LangLayoutProps {
+type LangLayoutProps = {
   children: ReactNode;
   params: Promise<{ lang: string }>;
-}
+};
 
 export const generateStaticParams = () => {
   return locales.map((lang) => ({ lang }));
@@ -34,7 +35,15 @@ const LangLayout = async ({ children, params }: LangLayoutProps): Promise<ReactN
 
   return (
     <Providers locale={lang} dictionary={dictionary}>
-      <SessionGuard>{session ? children : <Login />}</SessionGuard>
+      <SessionGuard>
+        {session ? (
+          <LayoutShell locale={lang}>
+            {children}
+          </LayoutShell>
+        ) : (
+          <Login />
+        )}
+      </SessionGuard>
     </Providers>
   );
 };
