@@ -9,11 +9,29 @@
 }
 
 @keyframes loader-bars-kf1 {
-  0%, 100% { background-size: 20% 100% }
-  33%, 66% { background-size: 20% 20% }
+  0%,
+  100% {
+    background-size: 20% 100%;
+  }
+  33%,
+  66% {
+    background-size: 20% 20%;
+  }
 }
 
 @keyframes loader-bars-kf2 {
-  0%, 33%   { background-position: 0    0, 50% 50%, 100% 100% }
-  66%, 100% { background-position: 100% 0, 50% 50%, 0    100% }
+  0%,
+  33% {
+    background-position:
+      0 0,
+      50% 50%,
+      100% 100%;
+  }
+  66%,
+  100% {
+    background-position:
+      100% 0,
+      50% 50%,
+      0 100%;
+  }
 }

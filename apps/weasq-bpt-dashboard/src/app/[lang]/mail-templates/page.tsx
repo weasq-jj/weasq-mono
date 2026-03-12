@@ -25,4 +25,3 @@ const MailTemplatesPage = () => {
 };
 
 export default MailTemplatesPage;
-

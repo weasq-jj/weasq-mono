@@ -8,4 +8,3 @@ export const buildBptApiUrl = (path: string) => {
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
   return `${getSanitizedBaseUrl()}${normalizedPath}`;
 };
-

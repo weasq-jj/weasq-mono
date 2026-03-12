@@ -14,15 +14,7 @@ export type ModalProps = {
   className?: string;
 };
 
-const Modal = ({
-  isOpen,
-  closeModal,
-  closeLabel,
-  title,
-  description,
-  children,
-  className,
-}: ModalProps) => {
+const Modal = ({ isOpen, closeModal, closeLabel, title, description, children, className }: ModalProps) => {
   const ref = useRef<HTMLDialogElement | null>(null);
 
   useEffect(() => {

@@ -72,7 +72,7 @@
 }
 
 .modal__close-button:focus-visible {
-  @apply outline-2 outline-offset-2 outline-primary-green-500;
+  @apply outline-primary-green-500 outline-2 outline-offset-2;
 }
 
 .modal__close-icon {

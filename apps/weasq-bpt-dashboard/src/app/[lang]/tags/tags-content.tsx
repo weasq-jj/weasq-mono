@@ -216,7 +216,12 @@ const TagsContent = () => {
           <Button onClick={handleCreateTag} disabled={!newTagName.trim()} loading={isCreating}>
             {dictionary?.tagsCreateAction}
           </Button>
-          <Button onClick={handleRefreshTags} disabled={isCreating || isRefreshing} loading={isRefreshing} invertTextOnHover={false}>
+          <Button
+            onClick={handleRefreshTags}
+            disabled={isCreating || isRefreshing}
+            loading={isRefreshing}
+            invertTextOnHover={false}
+          >
             {dictionary?.tagsRefreshAction}
           </Button>
         </div>
@@ -226,7 +231,9 @@ const TagsContent = () => {
         <h2 className={clsx('text-lg font-semibold text-slate-900')}>{dictionary?.tagsListTitle}</h2>
         {errorMessage ? <p className={clsx('text-sm text-red-600')}>{errorMessage}</p> : null}
         {isLoading ? <p className={clsx('text-sm text-slate-600')}>{dictionary?.tagsLoading}</p> : null}
-        {!isLoading && tags.length === 0 ? <p className={clsx('text-sm text-slate-600')}>{dictionary?.tagsEmptyState}</p> : null}
+        {!isLoading && tags.length === 0 ? (
+          <p className={clsx('text-sm text-slate-600')}>{dictionary?.tagsEmptyState}</p>
+        ) : null}
 
         {!isLoading && tags.length > 0 ? (
           <ul className={clsx('space-y-2')}>
@@ -263,12 +270,20 @@ const TagsContent = () => {
                           </Button>
                         </>
                       ) : (
-                        <Button onClick={() => startEdit(tag)} invertTextOnHover={false} disabled={Boolean(deletingTagId)}>
+                        <Button
+                          onClick={() => startEdit(tag)}
+                          invertTextOnHover={false}
+                          disabled={Boolean(deletingTagId)}
+                        >
                           {dictionary?.tagsEditAction}
                         </Button>
                       )}
 
-                      <Button onClick={() => openDeleteModal(tag)} danger disabled={isDeleting || isUpdating || isCreating}>
+                      <Button
+                        onClick={() => openDeleteModal(tag)}
+                        danger
+                        disabled={isDeleting || isUpdating || isCreating}
+                      >
                         {dictionary?.tagsDeleteAction}
                       </Button>
                     </div>
@@ -301,4 +316,3 @@ const TagsContent = () => {
 };
 
 export { TagsContent };
-

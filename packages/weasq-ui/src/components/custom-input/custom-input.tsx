@@ -70,12 +70,7 @@ const CustomInput = ({
           onKeyDown={onKeyDown}
         />
         {isClearable && value && (
-          <button
-            type="button"
-            className={clsx('custom-input__clear')}
-            onClick={handleClear}
-            disabled={disabled}
-          >
+          <button type="button" className={clsx('custom-input__clear')} onClick={handleClear} disabled={disabled}>
             <Icon name="close" className={clsx('custom-input__clear-icon')} decorative />
           </button>
         )}

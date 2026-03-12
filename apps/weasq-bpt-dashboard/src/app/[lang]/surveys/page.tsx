@@ -25,4 +25,3 @@ const SurveysPage = () => {
 };
 
 export default SurveysPage;
-

@@ -25,4 +25,3 @@ const SurveysOverviewPage = () => {
 };
 
 export default SurveysOverviewPage;
-

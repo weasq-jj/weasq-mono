@@ -1,6 +1,6 @@
 import { buildBptApiUrl } from '@/lib/bpt-api';
-import { createKeycloakAuthOptions } from '@weasq/weasq-auth/server';
 import { fetchWithToken } from '@weasq/weasq-auth';
+import { createKeycloakAuthOptions } from '@weasq/weasq-auth/server';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 

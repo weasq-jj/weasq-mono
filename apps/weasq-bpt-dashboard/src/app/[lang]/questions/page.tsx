@@ -14,7 +14,9 @@ const QuestionsPage = () => {
       <Link href={`/${locale}`} className={clsx('text-sm font-medium text-emerald-700 hover:text-emerald-800')}>
         {dictionary?.backToHome}
       </Link>
-      <h1 className={clsx('text-3xl font-semibold tracking-tight text-slate-900')}>{dictionary?.editorQuestionsTitle}</h1>
+      <h1 className={clsx('text-3xl font-semibold tracking-tight text-slate-900')}>
+        {dictionary?.editorQuestionsTitle}
+      </h1>
       <p className={clsx('text-sm text-slate-600')}>
         {dictionary?.comingSoonPrefix} {dictionary?.editorQuestionsDescription}
       </p>
@@ -23,4 +25,3 @@ const QuestionsPage = () => {
 };
 
 export default QuestionsPage;
-
